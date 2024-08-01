@@ -8,11 +8,15 @@
 body {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background-image: url("../assets/background-mar.webp");
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
 }
 
 .c-header {
@@ -40,6 +44,146 @@ body {
   font-weight: bold;
   text-align: center;
   font-size: 1rem;
+}
+
+.c-main {
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-grow: 1;
+}
+.c-main .c-main__card {
+  background-color: rgba(217, 217, 217, 0.5803921569);
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.337254902);
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  max-width: 355px;
+}
+.c-main .c-main__card .c-main__div .c-main__form form {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .c-main__form--area {
+  display: flex;
+  flex-direction: column;
+  margin: 3px 0;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .c-main__form--area label {
+  font-weight: bold;
+  color: #303030;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .c-main__form--area input, .c-main .c-main__card .c-main__div .c-main__form form .c-main__form--area textarea {
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 1rem;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch {
+  appearance: none;
+  width: 50px;
+  height: 25px;
+  background-color: #838383;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch::before {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background-color: #d5d5d5;
+  border-radius: 5px;
+  left: 5px;
+  top: 5px;
+  transition: 0.3s;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch::after {
+  content: "OFF";
+  position: absolute;
+  color: #000;
+  left: 55px;
+  top: 3px;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch:checked {
+  background-color: rgb(3, 179, 3);
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch:checked:before {
+  left: 30px;
+}
+.c-main .c-main__card .c-main__div .c-main__form form .checkbox .switch:checked::after {
+  content: "ON";
+}
+.c-main .c-main__card .c-main__div .c-main__form form button {
+  margin-top: 14px;
+  width: 100%;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #05A014;
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4941176471);
+}
+.c-main .c-main__card .c-main__div .c-main__result {
+  margin-top: 1.5rem;
+}
+.c-main .c-main__card .c-main__div .c-main__result .c-main__day {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.c-main .c-main__card .c-main__div .c-main__result .c-main__infos {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-align: start;
+  font-weight: bold;
+  color: #303030;
+}
+.c-main .c-main__card .c-main__div input[type=button] {
+  margin-top: 14px;
+  width: 100%;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: #DDCA04;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4941176471);
+}
+
+@media (min-width: 768px) {
+  .c-main .c-main__card {
+    max-width: 650px;
+    min-width: 500px;
+  }
+  .c-main .c-main__card .c-main__div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .c-main .c-main__card .c-main__div .c-main__result {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

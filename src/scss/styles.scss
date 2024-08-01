@@ -8,11 +8,27 @@
 body{
   width: 100%;
   height: 100%;
+  min-height: 100vh;
   background-image: url("../assets/background-mar.webp");
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin btn($bgColor, $color){
+  margin-top: 14px;
+  width: 100%;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  background-color: $bgColor;
+  color: $color;
+  font-weight: bold;
+  box-shadow: 0px 0px 10px #0000007e;
 }
 
 .c-header{
@@ -42,6 +58,159 @@ body{
       font-weight: bold;
       text-align: center;
       font-size: 1rem;
+    }
+  }
+}
+
+
+.c-main{
+  width: 100%;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  flex-grow: 1;
+
+  .c-main__card{
+    background-color: #d9d9d994;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #00000056;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 355px;
+
+    .c-main__div{
+
+      .c-main__form{
+        form{
+          display: flex;
+          flex-direction: column;
+          text-align: start;
+
+          .c-main__form--area{
+            display: flex;
+            flex-direction: column;
+            margin: 3px 0;
+
+            label{
+              font-weight: bold;
+              color: #303030;
+            }
+
+            input, textarea{
+              border: none;
+              border-radius: 5px;
+              padding: 5px;
+              font-size: 1rem;
+            }
+          }
+
+          .checkbox{
+            display: flex;
+            flex-direction: row;
+            gap: 5px;
+
+            .switch{
+              appearance: none;
+              width: 50px;
+              height: 25px;
+              background-color: #838383;
+              border-radius: 5px;
+              position: relative;
+              cursor: pointer;
+              transition: .3s;
+            
+              &::before{
+                content: "";
+                position: absolute;
+                width: 15px;
+                height: 15px;
+                background-color: #d5d5d5;
+                border-radius: 5px;
+                left: 5px;
+                top: 5px;
+                transition: .3s;
+              }
+            
+              &::after{
+                content: "OFF";
+                position: absolute;
+                color: #000;
+                left: 55px;
+                top: 3px;
+              }
+            
+              &:checked{
+                background-color: rgb(3, 179, 3);
+              }
+            
+              &:checked:before{
+                left: 30px;
+              }
+            
+              &:checked::after{
+                content: "ON";
+              }
+            }  
+          }
+
+          button{
+            @include btn(#05A014, #fff)
+          }
+          
+        }
+      }
+
+      .c-main__result{
+        margin-top: 1.5rem;
+
+        .c-main__day{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: .5rem;
+        }
+
+        .c-main__infos{
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+          text-align: start;
+          font-weight: bold;
+          color: #303030;
+        }
+
+      }
+
+      input[type="button"]{
+        @include btn(#DDCA04, #000)
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .c-main{
+    .c-main__card{
+      max-width: 650px;
+      min-width: 500px;
+
+      .c-main__div{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        .c-main__result{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          margin: 0;
+        }
+      }
     }
   }
 }

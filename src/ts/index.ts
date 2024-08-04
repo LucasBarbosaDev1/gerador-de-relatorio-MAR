@@ -15,7 +15,7 @@ users.forEach(item => {
   listUsers.innerHTML += `<option>${item.name}</option>`;
 });
 
-// dados dos formularios
+// permanencia dos dados no localStorage
 const formCloro = document.querySelector('.formCloro') as HTMLFormElement;
 const formQuimicos = document.querySelector('.formQuimicos') as HTMLFormElement;
 
@@ -24,10 +24,10 @@ if (localStorage.getItem('dataBase') === null) {
 {   
     dateCloro: "",
     dateQuimicos: "",
-    ref: 0,
-    ban: 0,
-    barrPena: 0,
-    barrVis: 0,
+    ref: 0.00,
+    ban: 0.00,
+    barrPena: 0.00,
+    barrVis: 0.00,
     aguaBruta: "",
     obs: "",
     lazox: 0,
@@ -76,6 +76,7 @@ formCloro.addEventListener('submit', (ev) => {
   dataBaseObj.obs = formCloro.obs.value;
 
   localStorage.setItem('dataBase', JSON.stringify(dataBaseObj))
+  render();
 });
 
 formQuimicos.addEventListener('submit', (ev) => {
@@ -87,5 +88,35 @@ formQuimicos.addEventListener('submit', (ev) => {
   dataBaseObj.lazAcid = Number(formQuimicos.lazAcid.value);
   
   localStorage.setItem('dataBase', JSON.stringify(dataBaseObj))
-  console.log(typeof dataBaseObj)
+  render();  
 });
+
+// renderização dos dados
+const dateCloro = document.querySelector('.c-main__day--dateCloro') as HTMLSpanElement;
+const refeitorio = document.querySelector('.c-main__infos--ref') as HTMLSpanElement;
+const banheiro = document.querySelector('.c-main__infos--ban') as HTMLSpanElement;
+const barrPena = document.querySelector('.c-main__infos--barrPena') as HTMLSpanElement;
+const barrVis = document.querySelector('.c-main__infos--barrVis') as HTMLSpanElement;
+const aguaBruta = document.querySelector('.c-main__infos--aguaBruta') as HTMLSpanElement;
+const obs = document.querySelector('.c-main__infos--obs') as HTMLSpanElement;
+
+const dateQuimicos = document.querySelector('.c-main__day--dateQuimicos') as HTMLSpanElement;
+const lazox = document.querySelector('.c-main__infos--lazox') as HTMLSpanElement;
+const salmolaz = document.querySelector('.c-main__infos--salmolaz') as HTMLSpanElement;
+const lazAcid = document.querySelector('.c-main__infos--lazAcid') as HTMLSpanElement;
+
+function render(): void {
+  dateCloro.textContent = dataBaseObj.dateCloro;
+  refeitorio.textContent = dataBaseObj.ref.toFixed(2);
+  banheiro.textContent = dataBaseObj.ban.toFixed(2);
+  barrPena.textContent = dataBaseObj.barrPena.toFixed(2);
+  barrVis.textContent = dataBaseObj.barrVis.toFixed(2);
+  aguaBruta.textContent = dataBaseObj.aguaBruta;
+  obs.textContent = dataBaseObj.obs;
+
+  dateQuimicos.textContent = dataBaseObj.dateQuimicos;
+  lazox.textContent = dataBaseObj.lazox.toString();
+  salmolaz.textContent = dataBaseObj.salmolaz.toString();
+  lazAcid.textContent = dataBaseObj.lazAcid.toString();
+}
+render();

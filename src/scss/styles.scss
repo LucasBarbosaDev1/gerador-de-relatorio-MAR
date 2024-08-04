@@ -41,25 +41,6 @@ body{
   .c-header__logo{
     width: 200px;
   }
-
-  .c-header__users{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    margin-top: 1.5rem;
-
-    label{
-      font-weight: bold;
-    }
-
-    select{
-      border-radius: 50px;
-      border: 3px solid #838383;
-      font-weight: bold;
-      text-align: center;
-      font-size: 1rem;
-    }
-  }
 }
 
 

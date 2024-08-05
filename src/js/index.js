@@ -67,6 +67,17 @@ btnCancel && modal.addEventListener('click', () => {
 divConfirm.addEventListener('click', (ev) => {
     ev.stopPropagation();
 });
+// mascara dos inputs do cloro
+const inputsCloro = [...document.querySelectorAll('.inputClor')];
+inputsCloro.forEach(el => {
+    el.addEventListener('keypress', () => {
+        let inputLength = el.value.length;
+        if (inputLength === 1 && el.value !== ".") {
+            el.value += ".";
+        }
+        ;
+    });
+});
 // renderização dos dados
 const dateCloro = document.querySelector('.c-main__day--dateCloro');
 const refeitorio = document.querySelector('.c-main__infos--ref');

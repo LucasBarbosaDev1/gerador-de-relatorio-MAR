@@ -98,6 +98,19 @@ divConfirm.addEventListener('click', (ev) => {
   ev.stopPropagation();
 });
 
+// mascara dos inputs do cloro
+const inputsCloro = [...document.querySelectorAll('.inputClor')] as HTMLInputElement[];
+
+inputsCloro.forEach(el => {
+  el.addEventListener('keypress', ()=> {
+    let inputLength: number = el.value.length;
+
+    if (inputLength === 1 && el.value !== ".") {
+      el.value += ".";
+    };
+  });
+});
+
 // renderização dos dados
 const dateCloro = document.querySelector('.c-main__day--dateCloro') as HTMLSpanElement;
 const refeitorio = document.querySelector('.c-main__infos--ref') as HTMLSpanElement;

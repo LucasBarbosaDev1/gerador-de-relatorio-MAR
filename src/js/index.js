@@ -1,7 +1,11 @@
 "use strict";
-// permanencia dos dados no localStorage
+// registro dos dados no localStorage
 const formCloro = document.querySelector('.formCloro');
 const formQuimicos = document.querySelector('.formQuimicos');
+const modal = document.querySelector('.c-main__modal');
+const divConfirm = document.querySelector('.c-main__confirm--alert');
+const btnSave = document.querySelector('#save');
+const btnCancel = document.querySelector('#cancel');
 if (localStorage.getItem('dataBase') === null) {
     localStorage.setItem('dataBase', JSON.stringify({
         dateCloro: "",
@@ -30,24 +34,38 @@ const analysisDate = () => {
 };
 formCloro.addEventListener('submit', (ev) => {
     ev.preventDefault();
-    dataBaseObj.dateCloro = analysisDate();
-    dataBaseObj.ref = Number(formCloro.ref.value);
-    dataBaseObj.ban = Number(formCloro.ban.value);
-    dataBaseObj.barrPena = Number(formCloro.barrPena.value);
-    dataBaseObj.barrVis = Number(formCloro.barrVis.value);
-    dataBaseObj.aguaBruta = formCloro.aguaBruta.checked ? "Ligada" : "Desligada";
-    dataBaseObj.obs = formCloro.obs.value;
-    localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
-    render();
+    modal.style.display = "flex";
+    btnSave.addEventListener('click', () => {
+        dataBaseObj.dateCloro = analysisDate();
+        dataBaseObj.ref = Number(formCloro.ref.value);
+        dataBaseObj.ban = Number(formCloro.ban.value);
+        dataBaseObj.barrPena = Number(formCloro.barrPena.value);
+        dataBaseObj.barrVis = Number(formCloro.barrVis.value);
+        dataBaseObj.aguaBruta = formCloro.aguaBruta.checked ? "Ligada" : "Desligada";
+        dataBaseObj.obs = formCloro.obs.value;
+        localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
+        render();
+        modal.style.display = "none";
+    });
 });
 formQuimicos.addEventListener('submit', (ev) => {
     ev.preventDefault();
-    dataBaseObj.dateQuimicos = analysisDate();
-    dataBaseObj.lazox = Number(formQuimicos.lazox.value);
-    dataBaseObj.salmolaz = Number(formQuimicos.salmolaz.value);
-    dataBaseObj.lazAcid = Number(formQuimicos.lazAcid.value);
-    localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
-    render();
+    modal.style.display = "flex";
+    btnSave.addEventListener('click', () => {
+        dataBaseObj.dateQuimicos = analysisDate();
+        dataBaseObj.lazox = Number(formQuimicos.lazox.value);
+        dataBaseObj.salmolaz = Number(formQuimicos.salmolaz.value);
+        dataBaseObj.lazAcid = Number(formQuimicos.lazAcid.value);
+        localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
+        render();
+        modal.style.display = "none";
+    });
+});
+btnCancel && modal.addEventListener('click', () => {
+    modal.style.display = "none";
+});
+divConfirm.addEventListener('click', (ev) => {
+    ev.stopPropagation();
 });
 // renderização dos dados
 const dateCloro = document.querySelector('.c-main__day--dateCloro');
@@ -74,6 +92,7 @@ function render() {
     salmolaz.textContent = dataBaseObj.salmolaz.toString();
     lazAcid.textContent = dataBaseObj.lazAcid.toString();
 }
+;
 render();
 // gerar relatório
 const relaCloro = document.querySelector('.c-main__result--relaCloro');
@@ -107,7 +126,8 @@ relaCloro.addEventListener('click', () => {
         unconformities += "%0ABarreira Víscera acima do padrão";
     }
     ;
-    window.open(`https://api.whatsapp.com/send?&text=*Clora%C3%A7%C3%A3o%20da%20%C3%81gua*%0ARefeit%C3%B3rio:%20${dataBaseObj.ref}%0ABanheiro:%20${dataBaseObj.ban}%0ABarreira%20Pena:%20${dataBaseObj.barrPena}%0ABarreira%20V%C3%ADscera:%20${dataBaseObj.barrVis}%0A%C3%81gua%20Bruta:%20${dataBaseObj.aguaBruta}%0A%0AOBS.:%0A${dataBaseObj.obs}${unconformities}`);
+    window.open(`https://api.whatsapp.com/send?&text=*Clora%C3%A7%C3%A3o%20da%20%C3%81gua*%0ARefeit%C3%B3rio:%20${dataBaseObj.ref}%0ABanheiro:%20${dataBaseObj.ban}%0ABarreira%20Pena:%20${dataBaseObj.barrPena}%0ABarreira%20V%C3%ADscera:%20${dataBaseObj.barrVis}%0A%C3%81gua%20Bruta:%20${dataBaseObj.aguaBruta}%0A%0AOBS.:${dataBaseObj.obs === "" ? "" : "%0A"}${dataBaseObj.obs}${unconformities}`);
+    unconformities = "";
 });
 const relaQuimicos = document.querySelector('.c-main__result--relaQuimicos');
 relaQuimicos.addEventListener('click', () => {

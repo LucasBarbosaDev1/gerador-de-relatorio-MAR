@@ -1,6 +1,10 @@
-// permanencia dos dados no localStorage
+// registro dos dados no localStorage
 const formCloro = document.querySelector('.formCloro') as HTMLFormElement;
 const formQuimicos = document.querySelector('.formQuimicos') as HTMLFormElement;
+const modal = document.querySelector('.c-main__modal') as HTMLDivElement;
+const divConfirm = document.querySelector('.c-main__confirm--alert') as HTMLDivElement;
+const btnSave = document.querySelector('#save') as HTMLInputElement;
+const btnCancel = document.querySelector('#cancel') as HTMLInputElement;
 
 if (localStorage.getItem('dataBase') === null) {
   localStorage.setItem('dataBase', JSON.stringify(
@@ -16,7 +20,7 @@ if (localStorage.getItem('dataBase') === null) {
     lazox: 0,
     salmolaz: 0,
     lazAcid: 0
-}  
+}
   ));
 };
 
@@ -44,34 +48,54 @@ const analysisDate = ():string => {
   const month: string = date.getMonth().toString().length == 1 ? `0${date.getMonth()}` : `${date.getMonth}`;
   const year: string = date.getFullYear().toString();
 
-  return `${day}/${month}/${year}`
-}
+  return `${day}/${month}/${year}`;
+};
 
 formCloro.addEventListener('submit', (ev) => {
   ev.preventDefault();
 
-  dataBaseObj.dateCloro = analysisDate();
-  dataBaseObj.ref = Number(formCloro.ref.value);
-  dataBaseObj.ban = Number(formCloro.ban.value);
-  dataBaseObj.barrPena = Number(formCloro.barrPena.value);
-  dataBaseObj.barrVis = Number(formCloro.barrVis.value);
-  dataBaseObj.aguaBruta = formCloro.aguaBruta.checked ? "Ligada" : "Desligada";
-  dataBaseObj.obs = formCloro.obs.value;
+  modal.style.display = "flex";
 
-  localStorage.setItem('dataBase', JSON.stringify(dataBaseObj))
-  render();
+  btnSave.addEventListener('click', ()=> {
+    dataBaseObj.dateCloro = analysisDate();
+    dataBaseObj.ref = Number(formCloro.ref.value);
+    dataBaseObj.ban = Number(formCloro.ban.value);
+    dataBaseObj.barrPena = Number(formCloro.barrPena.value);
+    dataBaseObj.barrVis = Number(formCloro.barrVis.value);
+    dataBaseObj.aguaBruta = formCloro.aguaBruta.checked ? "Ligada" : "Desligada";
+    dataBaseObj.obs = formCloro.obs.value;
+  
+    localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
+    render();
+    modal.style.display = "none";
+  });
+  
 });
 
 formQuimicos.addEventListener('submit', (ev) => {
   ev.preventDefault();
-  
-  dataBaseObj.dateQuimicos = analysisDate();
-  dataBaseObj.lazox = Number(formQuimicos.lazox.value);
-  dataBaseObj.salmolaz = Number(formQuimicos.salmolaz.value);
-  dataBaseObj.lazAcid = Number(formQuimicos.lazAcid.value);
-  
-  localStorage.setItem('dataBase', JSON.stringify(dataBaseObj))
-  render();  
+
+  modal.style.display = "flex";
+
+  btnSave.addEventListener('click', ()=> {
+    dataBaseObj.dateQuimicos = analysisDate();
+    dataBaseObj.lazox = Number(formQuimicos.lazox.value);
+    dataBaseObj.salmolaz = Number(formQuimicos.salmolaz.value);
+    dataBaseObj.lazAcid = Number(formQuimicos.lazAcid.value);
+    
+    localStorage.setItem('dataBase', JSON.stringify(dataBaseObj));
+    render();  
+    modal.style.display = "none";
+  })
+
+});
+
+btnCancel && modal.addEventListener('click', ()=> {
+  modal.style.display = "none";
+});
+
+divConfirm.addEventListener('click', (ev) => {
+  ev.stopPropagation();
 });
 
 // renderização dos dados
@@ -101,7 +125,7 @@ function render(): void {
   lazox.textContent = dataBaseObj.lazox.toString();
   salmolaz.textContent = dataBaseObj.salmolaz.toString();
   lazAcid.textContent = dataBaseObj.lazAcid.toString();
-}
+};
 render();
 
 // gerar relatório
@@ -112,35 +136,37 @@ let unconformities: string = "";
 relaCloro.addEventListener('click', ()=> {
 
   if (dataBaseObj.ref < 0.2) {
-    unconformities += "%0ARefeitório abaixo do padrão"
+    unconformities += "%0ARefeitório abaixo do padrão";
   } else if (dataBaseObj.ref > 2) {
-    unconformities += "%0ARefeitório acima do padrão"
+    unconformities += "%0ARefeitório acima do padrão";
   };
   
   if (dataBaseObj.ban < 0.2) {
-    unconformities += "%0ABanheiro abaixo do padrão"
+    unconformities += "%0ABanheiro abaixo do padrão";
   } else if (dataBaseObj.ban > 2) {
-    unconformities += "%0ABanheiro acima do padrão"
+    unconformities += "%0ABanheiro acima do padrão";
   };
   
   if (dataBaseObj.barrPena < 0.2) {
-    unconformities += "%0ABarreira Pena abaixo do padrão"
+    unconformities += "%0ABarreira Pena abaixo do padrão";
   } else if (dataBaseObj.barrPena > 2) {
-    unconformities += "%0ABarreira Pena acima do padrão"
+    unconformities += "%0ABarreira Pena acima do padrão";
   };
   
   if (dataBaseObj.barrVis < 0.2) {
-    unconformities += "%0ABarreira Víscera abaixo do padrão"
+    unconformities += "%0ABarreira Víscera abaixo do padrão";
   } else if (dataBaseObj.barrVis > 2) {
-    unconformities += "%0ABarreira Víscera acima do padrão"
+    unconformities += "%0ABarreira Víscera acima do padrão";
   };
 
-  window.open(`https://api.whatsapp.com/send?&text=*Clora%C3%A7%C3%A3o%20da%20%C3%81gua*%0ARefeit%C3%B3rio:%20${dataBaseObj.ref}%0ABanheiro:%20${dataBaseObj.ban}%0ABarreira%20Pena:%20${dataBaseObj.barrPena}%0ABarreira%20V%C3%ADscera:%20${dataBaseObj.barrVis}%0A%C3%81gua%20Bruta:%20${dataBaseObj.aguaBruta}%0A%0AOBS.:%0A${dataBaseObj.obs}${unconformities}`);
+  window.open(`https://api.whatsapp.com/send?&text=*Clora%C3%A7%C3%A3o%20da%20%C3%81gua*%0ARefeit%C3%B3rio:%20${dataBaseObj.ref}%0ABanheiro:%20${dataBaseObj.ban}%0ABarreira%20Pena:%20${dataBaseObj.barrPena}%0ABarreira%20V%C3%ADscera:%20${dataBaseObj.barrVis}%0A%C3%81gua%20Bruta:%20${dataBaseObj.aguaBruta}%0A%0AOBS.:${dataBaseObj.obs === "" ? "" : "%0A"}${dataBaseObj.obs}${unconformities}`);
 
-})
+  unconformities = "";
+
+});
 
 const relaQuimicos = document.querySelector('.c-main__result--relaQuimicos') as HTMLInputElement;
 
 relaQuimicos.addEventListener('click', ()=> {
-  window.open(`https://api.whatsapp.com/send?&text=*N%C3%ADvel%20dos%20Qu%C3%ADmicos*%0ALazox%20MC:%20${dataBaseObj.lazox}%20L%0ASalmolaz:%20${dataBaseObj.salmolaz}%20L%0ALaz%20Acid:%20${dataBaseObj.lazAcid}%20L`)
-})
+  window.open(`https://api.whatsapp.com/send?&text=*N%C3%ADvel%20dos%20Qu%C3%ADmicos*%0ALazox%20MC:%20${dataBaseObj.lazox}%20L%0ASalmolaz:%20${dataBaseObj.salmolaz}%20L%0ALaz%20Acid:%20${dataBaseObj.lazAcid}%20L`);
+});

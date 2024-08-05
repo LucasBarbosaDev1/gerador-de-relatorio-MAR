@@ -29,6 +29,7 @@ body{
   color: $color;
   font-weight: bold;
   box-shadow: 0px 0px 10px #0000007e;
+  cursor: pointer;
 }
 
 .c-header{
@@ -168,6 +169,64 @@ body{
 
       input[type="button"]{
         @include btn(#DDCA04, #000)
+      }
+    }
+  }
+
+  .c-main__modal{
+    background-color: #00000063;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    
+    .c-main__confirm{
+      background-color: #fff;
+      min-height: 100px;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+
+      .c-main__confirm--alert{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        flex: 1 1 0;
+      }
+
+      .c-main__confirm--btns{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        input{
+          border: none;
+          min-width: 150px;
+          height: 35px;
+          font-weight: bold;
+          cursor: pointer;
+
+          &:hover{
+            background-color: #838383;
+            color: #fff;
+          }
+
+          &:nth-child(1){
+            background-color: #05A014;
+            color: #fff;
+
+            &:hover{
+              background-color: #06640f;
+            }
+          }
+        }
+
       }
     }
   }

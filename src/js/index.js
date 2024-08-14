@@ -27,8 +27,8 @@ let dataBaseString = localStorage.getItem('dataBase');
 let dataBaseObj = JSON.parse(dataBaseString);
 const analysisDate = () => {
     const date = new Date();
-    const day = date.getDate().toString().length == 1 ? `0${date.getDate()}` : `${date.getDate}`;
-    const month = date.getMonth().toString().length == 1 ? `0${date.getMonth()}` : `${date.getMonth}`;
+    const day = date.getDate().toString().length == 1 ? `0${date.getDate()}` : `${date.getDate()}`;
+    const month = date.getMonth().toString().length == 1 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
     const year = date.getFullYear().toString();
     return `${day}/${month}/${year}`;
 };

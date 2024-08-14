@@ -44,8 +44,8 @@ let dataBaseObj: DataBase = JSON.parse(dataBaseString);
 const analysisDate = ():string => {
   const date = new Date();
 
-  const day: string = date.getDate().toString().length == 1 ? `0${date.getDate()}` : `${date.getDate}`;
-  const month: string = date.getMonth().toString().length == 1 ? `0${date.getMonth()}` : `${date.getMonth}`;
+  const day: string = date.getDate().toString().length == 1 ? `0${date.getDate()}` : `${date.getDate()}`;
+  const month: string = date.getMonth().toString().length == 1 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
   const year: string = date.getFullYear().toString();
 
   return `${day}/${month}/${year}`;
